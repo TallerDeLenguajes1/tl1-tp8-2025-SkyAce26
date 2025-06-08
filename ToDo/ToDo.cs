@@ -6,24 +6,7 @@ namespace EspacioTareas
         public int TareaID { get; set; }
         public string Descripcion { get; set; }
 
-        private int duracion;
-
-        public int Duracion
-        {
-            get { return duracion; }
-
-            set
-            {
-                if (value >= 10 && value <= 100)
-                {
-                    duracion = value;
-                }
-                else
-                {
-                    Console.WriteLine("Duración inválida, debe estar entre 10 y 100 días");
-                }
-            }
-        } // Validar que esté entre 10 y 100 
+        public int Duracion { get; set; } // Validar que esté entre 10 y 100 
           // Puedes añadir un constructor y métodos auxiliares si lo consideras necesario 
 
         public Tarea(int id, string descripcion, int duracion)
@@ -36,7 +19,7 @@ namespace EspacioTareas
         {
             return $"ID: {TareaID}\nDescripción: {Descripcion}\nDuración: {Duracion}";
         }
-    } 
+    }
 
     public class GestorDeTareas
     {
@@ -56,9 +39,36 @@ namespace EspacioTareas
             TareasPendientes.Add(nuevaTarea);
         }
 
+        public void MoverTarea(int id)
+        {
+            //busco la tarea que tenga el id ingresado:
+            Tarea tarea = TareasPendientes.FirstOrDefault(t => t.TareaID == id);
+
+            if (tarea != null)
+            {
+                TareasCompletadas.Add(tarea);
+                TareasPendientes.Remove(tarea);
+                Console.WriteLine("Tarea movida exitosamente");
+            }
+            else
+            {
+                Console.WriteLine("Error en mover la tarea.");
+            }
+            
+        }
+
         public void MostrarTareasPendientes()
         {
             foreach (var tarea in TareasPendientes)
+            {
+                Console.WriteLine(tarea.Mostrar());
+                Console.WriteLine("------------------");
+            }
+        }
+
+        public void MostrarTareasCompletadas()
+        {
+            foreach (var tarea in TareasCompletadas)
             {
                 Console.WriteLine(tarea.Mostrar());
                 Console.WriteLine("------------------");
