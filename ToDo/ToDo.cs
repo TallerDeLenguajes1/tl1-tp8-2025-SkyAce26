@@ -57,6 +57,22 @@ namespace EspacioTareas
             
         }
 
+        public void buscarTareaPorDescripcion(string descripcion)
+        {
+            Tarea tarea = TareasPendientes.FirstOrDefault(t => t.Descripcion == descripcion);
+
+            if (tarea != null)
+            {
+                Console.WriteLine(tarea.Mostrar());
+                Console.WriteLine("------------------");
+            }
+            else
+            {
+                Console.WriteLine("Error en encontrar la tarea.");
+            }
+
+        }
+
         public void MostrarTareasPendientes()
         {
             foreach (var tarea in TareasPendientes)
